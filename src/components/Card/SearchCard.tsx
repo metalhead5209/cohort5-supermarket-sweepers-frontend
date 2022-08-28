@@ -15,7 +15,7 @@ interface MeatData {
 export default function SearchCard(props: MeatData){
 
     return(
-        <Card>
+        <Card className="search-card">
         <CardBody>
             <CardTitle tag="h5">{props.name}</CardTitle>
         </CardBody>

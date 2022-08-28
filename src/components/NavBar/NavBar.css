@@ -77,6 +77,7 @@
 @media screen and (max-width: 870px) {
   .NavBar {
     transition: 0.5s all ease;
+    justify-content: flex-end;
   }
 
   .NavMenu {
