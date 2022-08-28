@@ -28,6 +28,10 @@
     /* margin-left: 20%; */
 }
 
+.forms {
+    flex-wrap: wrap;
+}
+
 @media screen and (max-width: 870px) {
     .search-container {
     grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);

@@ -30,9 +30,6 @@ const handleClick = () => {
                 <li className='Link'>
                   <Link to="/">Home</Link>
                 </li>
-                {/* <li className='Link'>
-                  <Link to="/about">About</Link>
-                </li> */}
                 <li className='Link'>
                   <Link to="/search">Search</Link>
                 </li>
@@ -46,9 +43,6 @@ const handleClick = () => {
         <ul className="DropItems">
                 <li className='DropLink'>
                   <Link to="/">Home</Link>
-                </li>
-                <li className='DropLink'>
-                  <Link to="/about">About</Link>
                 </li>
                 <li className='DropLink'>
                   <Link to="/search">Search</Link>
