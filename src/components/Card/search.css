@@ -8,8 +8,10 @@
     grid-gap: 5vh;
 }
 .search-card{
-    background-color: black;
-    color: white;
+    background-color: rgba(0,0,0,0.2);
+    color: black;
+    font-weight: 600;
+    border: 3px solid #51c585;
     padding-bottom: 1rem;
     margin: 0;
 }

@@ -1,7 +1,7 @@
 import axios from "axios"
 import {v4 as uuid} from 'uuid';
-import SearchCard from "../components/SearchCard"
-import "../components/search.css"
+import SearchCard from "../components/Card/SearchCard"
+import "../components/Card/search.css"
 import { useEffect, useState } from "react"
 
 const search = () => {
@@ -39,18 +39,7 @@ const search = () => {
     })
      
   }
-  // function changeType(e:any){
-  //   ///Change other dropdowns to all
-  //   (document.getElementById("store-dropdown") as HTMLInputElement).value = ""
 
-  //   axios.get(`https://supermarket-sweepers-backend.herokuapp.com/api/groceryitems/meat?type=${e.target.value}`)
-  //   .then(res => {
-  //     setAllMeatCards(res?.data.results.map((data: { name: string; type: string; store: string; pricePerLb: number; option: string }) =>{
-  //       return(<SearchCard key={uuid()} name={data.name} type={data.type} store={data.store} pricePerLb={data.pricePerLb} option={data.option}/>)
-  //     }))
-  //   })
-  // }
-  
 // for form items save items to state, handling state of form
   function onQueryChange(e:any){
     setQueryItems(prevItem => ({
