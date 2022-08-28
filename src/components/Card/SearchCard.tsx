@@ -1,3 +1,8 @@
+import { gracefulify } from 'graceful-fs';
+import {Card, CardBody, CardTitle, ListGroup, ListGroupItem} from 'reactstrap';
+
+import 'bootstrap/dist/css/bootstrap.css';
+
 interface MeatData {
     name: string;
     store: string;
@@ -6,19 +11,21 @@ interface MeatData {
     pricePerLb: number;
 }
 
+
 export default function SearchCard(props: MeatData){
 
-    
-
-
-
     return(
-        <div className="search-card">
-            <div className="search-card-element">Name: {props.name}</div>
-            <div className="search-card-element">Store: {props.store}</div>
-            <div className="search-card-element">Type: {props.type}</div>
-            <div className="search-card-element">Price: ${props.pricePerLb}</div>
-            <div className="search-card-element">Option: {props.option}</div>
-        </div>
+        <Card>
+        <CardBody>
+            <CardTitle tag="h5">{props.name}</CardTitle>
+        </CardBody>
+
+        <ListGroup flush>
+            <ListGroupItem style={{textTransform: "capitalize"}}>Price: ${props.pricePerLb}</ListGroupItem>
+            <ListGroupItem style={{textTransform: "capitalize"}}>Store: {props.store}</ListGroupItem>
+            <ListGroupItem style={{textTransform: "capitalize"}}>Type: {props.type}</ListGroupItem>
+            <ListGroupItem style={{textTransform: "capitalize"}}>Option: {props.option}</ListGroupItem>
+        </ListGroup>
+        </Card>
     )
 }

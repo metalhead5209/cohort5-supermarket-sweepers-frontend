@@ -4,12 +4,19 @@ import SearchCard from "../components/Card/SearchCard"
 import "../components/Card/search.css"
 import { useEffect, useState } from "react"
 
+import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button} from "reactstrap"
+
 const search = () => {
   const [meatData, setMeatData] = useState<any[]>()
   const [allMeatCards, setAllMeatCards] = useState<any[]>()
 
-  const [queryItems, setQueryItems] = useState({store: "", type: "", name: ""})
+  const [queryItems, setQueryItems] = useState({store: "", type: "", name: "", option: ""})
+  
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [typeDropdownOpen, setTypeDropdownOpen] = useState(false)
 
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const toggleType = () => setTypeDropdownOpen((prevState) => !prevState)
 
   useEffect(() =>{
     axios.get("https://supermarket-sweepers-backend.herokuapp.com/api/groceryitems/meat")
@@ -18,20 +25,19 @@ const search = () => {
     })
   }, [])
 
-  useEffect(() =>{
-    changeQueryString()
-  }, [queryItems])
-
+  ///Displays new cards on page whenever new meatData gets fetched
   useEffect(() =>{
     setAllMeatCards(meatData?.map(data =>{
       return(<SearchCard key={uuid()} name={data.name} type={data.type} store={data.store} pricePerLb={data.pricePerLb} option={data.option}/>)
     }))
   }, [meatData])
 
-// formerly changeStore
-  function changeQueryString(){
+
+  function formSubmit(e:any){
+    e.preventDefault()
+
     ///Change other dropdowns to all
-    axios.get(`https://supermarket-sweepers-backend.herokuapp.com/api/groceryitems/meat?store=${queryItems.store}&type=${queryItems.type}&q=${queryItems.name}`)
+    axios.get(`https://supermarket-sweepers-backend.herokuapp.com/api/groceryitems/meat?store=${queryItems.store}&option=${queryItems.option}&type=${queryItems.type}&q=${queryItems.name}`)
     .then(res => {
       setAllMeatCards(res?.data.results.map((data: { name: string; type: string; store: string; pricePerLb: number; option: string }) =>{
         return(<SearchCard key={uuid()} name={data.name} type={data.type} store={data.store} pricePerLb={data.pricePerLb} option={data.option}/>)
@@ -39,7 +45,11 @@ const search = () => {
     })
      
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> c9e16e5e54de379d0c42d08af928d482acd3a85c
 // for form items save items to state, handling state of form
   function onQueryChange(e:any){
     setQueryItems(prevItem => ({
@@ -48,26 +58,60 @@ const search = () => {
     }))
   }
 
+  function changeStoreString(storeString:string){
+    setQueryItems(prevItem => ({
+      ...prevItem,
+      store: storeString
+    }))
+  }
+
+  function changeTypeString(typeString:string){
+    setQueryItems(prevItem => ({
+      ...prevItem,
+      type: typeString
+    }))
+  }
+
+  const dropDownStyle = {
+    marginLeft: "1rem",
+    marginRight: "1rem"
+  }
 
   if (!meatData) return null
 
   return (
     <>
-      <div className="search-bar">
-        <select name="store" id="store-dropdown" onChange={onQueryChange}>
-          <option value="">All Stores</option>
-          <option value="walmart">Walmart</option>
-          <option value="kroger">Kroger</option>
-        </select>
-        <select name="type" id="type-dropdown" onChange={onQueryChange}>
-          <option value="">All Types</option>
-          <option value="chicken">Chicken</option>
-          <option value="pork">Pork</option>
-          <option value="groundBeef">Ground Beef</option>
-        </select>
-      </div>
-      <input name="name" type="text" placeholder="Filter Results" onChange={onQueryChange}/>
-      <button type="submit">Submit</button>
+      <form style={{marginLeft: "1.8%"}} onSubmit={formSubmit} className="d-flex p-5">
+          <Dropdown style={dropDownStyle} isOpen={dropdownOpen} toggle={toggle} >
+            <DropdownToggle style={{textTransform: "capitalize"}} caret>{queryItems.store === "" ? "All Stores" : queryItems.store}</DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={() => {changeStoreString("")}}>All Stores</DropdownItem>
+              <DropdownItem onClick={() => {changeStoreString("walmart")}}>Walmart</DropdownItem>
+              <DropdownItem onClick={() => {changeStoreString("kroger")}}>Kroger</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
+          <Dropdown style={{marginLeft: "0", marginRight: "1rem"}} isOpen={typeDropdownOpen} toggle={toggleType} >
+            <DropdownToggle style={{textTransform: "capitalize"}} caret>{queryItems.type === "" ? "All Types" : queryItems.type}</DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem onClick={() => {changeTypeString("")}}>All Types</DropdownItem>
+              <DropdownItem onClick={() => {changeTypeString("chicken")}}>Chicken</DropdownItem>
+              <DropdownItem onClick={() => {changeTypeString("pork")}}>Pork</DropdownItem>
+              <DropdownItem onClick={() => {changeTypeString("groundBeef")}}>Ground Beef</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
+          <Input 
+            name="name"
+            placeholder="Filter Results"
+            onChange={onQueryChange}
+            style={{width: "20%"}}
+          />
+
+          <Button style={dropDownStyle}>Submit</Button>
+      </form>
+
+
       <div className='search-container'>
         {allMeatCards}
       </div>    
