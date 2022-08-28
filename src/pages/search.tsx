@@ -4,7 +4,7 @@ import SearchCard from "../components/Card/SearchCard"
 import "../components/Card/search.css"
 import { useEffect, useState } from "react"
 
-import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button} from "reactstrap"
+import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button} from "reactstrap";
 
 const search = () => {
   const [meatData, setMeatData] = useState<any[]>()
@@ -45,11 +45,7 @@ const search = () => {
     })
      
   }
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> c9e16e5e54de379d0c42d08af928d482acd3a85c
 // for form items save items to state, handling state of form
   function onQueryChange(e:any){
     setQueryItems(prevItem => ({
